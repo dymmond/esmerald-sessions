@@ -7,15 +7,15 @@ from esmerald_sessions.exceptions import SessionException
 
 
 class MemCacheJSONSerde(BaseModel):
-    def serialize(self, key: Union[str, int], value: Any) -> bytes:
+    def serialize(self, key: Union[str, int], value: Any) -> Any:
         """
         Marshalls the value with ORJSON.
         """
         if isinstance(value, str):
             return value, 1
-        return orjson.dumps(value), 2
+        return orjson.dumps(value).decode("utf-8"), 2
 
-    def deserialize(key: Union[str, int], value: Any, flags: int) -> Any:
+    def deserialize(self, key: Union[str, int], value: Any, flags: int) -> Any:
         """
         Unmarshalls the value with ORJSON.
         """

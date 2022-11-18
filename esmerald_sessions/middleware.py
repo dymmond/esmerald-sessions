@@ -1,5 +1,5 @@
 from base64 import b64decode, b64encode
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Optional
 from uuid import uuid4
 
 import itsdangerous
@@ -36,7 +36,7 @@ class SessionMiddleware(MiddlewareProtocol):
         app = Esmerald(routes=..., middleware=[SessionMiddleware])
     """
 
-    def __init__(self, app: "ASGIApp", config: "SessionConfig", **kwargs: Any):
+    def __init__(self, app: "ASGIApp", config: "SessionConfig", **kwargs: "DictAny"):
         """The SessionMiddleware object.
 
         Args:
@@ -71,8 +71,10 @@ class SessionMiddleware(MiddlewareProtocol):
             data = connection.cookies[self.config.cookie_name].encode("utf-8")
             try:
                 if self.backend_type == BackendType.cookie or not self.session_backend:
+                    data = self.signer.unsign(data, max_age=self.config.max_age)
                     scope["session"] = orjson.loads(b64decode(data))
                 else:
+                    data = self.signer.unsign(data, max_age=self.config.max_age)
                     session_key = orjson.loads(b64decode(data)).get(self._cookie_session_id_field)
                     scope["session"] = await self.session_backend.get(session_key)
                     scope["__session_key"] = session_key
@@ -95,19 +97,20 @@ class SessionMiddleware(MiddlewareProtocol):
                         )
                         cookie_data = {self._cookie_session_id_field: session_key}
 
-                    data = b64encode(orjson.dumps(cookie_data).encode("utf-8"))
+                    data = b64encode(orjson.dumps(cookie_data))
                     data = self.signer.sign(data)
 
-                    headers = MutableHeaders(scope=scope)
+                    headers = MutableHeaders(scope=message)
                     header_value = self._construct_cookie(clear=False, data=data)
                     headers.append("Set-Cookie", header_value)
-            elif not initial_empty_session:
-                if self.session_backend and self.backend_type != BackendType.cookie:
-                    await self.session_backend.delete(session_key)
 
-                headers = MutableHeaders(scope=message)
-                header_value = self._construct_cookie(clear=True)
-                headers.append("Set-Cookie", header_value)
+                elif not initial_empty_session:
+                    if self.session_backend and self.backend_type != BackendType.cookie:
+                        await self.session_backend.delete(session_key)
+
+                    headers = MutableHeaders(scope=message)
+                    header_value = self._construct_cookie(clear=True)
+                    headers.append("Set-Cookie", header_value)
 
             await send(message)
 
@@ -129,9 +132,9 @@ class SessionMiddleware(MiddlewareProtocol):
 
     def _construct_cookie(self, clear: bool = False, data=None) -> str:
         if clear:
-            cookie = f"{self.config.cookie_name}=null; path={self.config.path}; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; {self.security_flags}"
+            cookie = f"{self.config.cookie_name}=null; Path={self.config.path}; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; {self.security_flags}"
         else:
-            cookie = f"{self.config.cookie_name}={data.decode('utf-8')}; Path=/; Max-Age={self.config.max_age}; {self.security_flags}"
-        if self.domain:
+            cookie = f"{self.config.cookie_name}={data.decode('utf-8')}; Path={self.config.path}; Max-Age={self.config.max_age}; {self.security_flags}"
+        if self.config.domain:
             cookie = f"{cookie}; Domain={self.config.domain}"
-        return
+        return cookie

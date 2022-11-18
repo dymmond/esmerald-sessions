@@ -1,6 +1,6 @@
-site_name: Asyncz
+site_name: Esmerald Sessions
 site_description: The scheduler that nobody wanted but the one that every application needs.
-site_url: https://asyncz.dymmond.com
+site_url: https://esmerald-sessions.dymmond.com
 
 theme:
   name: "material"
@@ -8,16 +8,16 @@ theme:
   language: en
   palette:
     - scheme: "default"
-      primary: "red"
-      accent: "orange"
+      primary: "pink"
+      accent: "red"
       media: "(prefers-color-scheme: light)"
       toggle:
         icon: "material/toggle-switch-variant"
         name: "Switch to dark mode"
     - scheme: "slate"
       media: "(prefers-color-scheme: dark)"
-      primary: "red"
-      accent: "orange"
+      primary: "pink"
+      accent: "red"
       toggle:
         icon: "material/toggle-switch-variant-off"
         name: "Switch to light mode"
@@ -28,8 +28,8 @@ theme:
     - search.highlight
     - content.tabs.link
 
-repo_name: dymmond/asyncz
-repo_url: https://github.com/dymmond/asyncz
+repo_name: dymmond/esmerald-sessions
+repo_url: https://github.com/dymmond/esmerald-sessions
 edit_uri: ""
 plugins:
   - search
@@ -37,7 +37,11 @@ plugins:
       data: data
 
 nav:
-  - Asyncz: "index.md"
+  - Esmerald Sessions: "index.md"
+  - Usage: "usage.md"
+  - Contributing: "contributing.md"
+  - Sponsorship: "sponsorship.md"
+  - Release Notes: "release-notes.md"
 markdown_extensions:
   - toc:
       permalink: true
@@ -68,5 +72,4 @@ extra:
     #   lang: en
 
 extra_css:
-  - statics/css/extra.css
   - statics/css/custom.css

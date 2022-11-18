@@ -24,7 +24,7 @@ class RedisSessionBackend(SessionBackend):
     Backend for redis.
     """
 
-    redis: Redis
+    redis: Optional[Redis]
 
     def __init__(self, redis: Redis, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -48,7 +48,7 @@ class AioRedisSessionBackend(SessionBackend):
     Backend for aioredis.
     """
 
-    redis: AioRedis
+    redis: Optional[AioRedis]
 
     def __init__(self, redis: AioRedis, **kwargs) -> None:
         super().__init__(**kwargs)
@@ -68,7 +68,7 @@ class AioRedisSessionBackend(SessionBackend):
 
 
 class MemCacheSessionBackend(SessionBackend):
-    memcache: MemCache
+    memcache: Optional[MemCache]
 
     def __init__(self, memcache: MemCache, **kwargs: "DictAny") -> None:
         super().__init__(**kwargs)
@@ -82,14 +82,14 @@ class MemCacheSessionBackend(SessionBackend):
     async def set(
         self, key: str, value: "DictAny", expire: Optional[int], **kwargs: "DictAny"
     ) -> Optional[str]:
-        return self.memecache.set(key, value, expire=expire, **kwargs)
+        return self.memcache.set(key, value, expire=expire, **kwargs)
 
     async def delete(self, key: str, **kwargs: "DictAny") -> Any:
         return self.memcache.delete(key, **kwargs)
 
 
 class AioMemCacheSessionBackend(SessionBackend):
-    memcache: AioMemcache
+    memcache: Optional[AioMemcache]
 
     def __init__(self, memcache: AioMemcache, **kwargs: "DictAny") -> None:
         super().__init__(**kwargs)
@@ -103,7 +103,7 @@ class AioMemCacheSessionBackend(SessionBackend):
     async def set(
         self, key: str, value: "DictAny", expire: Optional[int], **kwargs: "DictAny"
     ) -> Optional[str]:
-        return await self.memecache.set(key, value, expire=expire, **kwargs)
+        return await self.memcache.set(key, value, expire=expire, **kwargs)
 
     async def delete(self, key: str, **kwargs: "DictAny") -> Any:
         return await self.memcache.delete(key, **kwargs)
