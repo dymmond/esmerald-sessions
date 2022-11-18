@@ -4,6 +4,6 @@
 
 November 15, 2022
 
-### Fixed
+### Added
 
 - First release of Esmerald Sessions.
