@@ -30,8 +30,8 @@ class SessionConfig(BaseModel):
     path: Optional[str] = "/"
     cookie_name: str
     max_age: int = 14 * 24 * 60 * 60
-    same_site: str = "lax"
     https_only: bool = False
+    same_site: str = "lax"
     domain: Optional[str] = None
     backend_type: Optional[BackendType] = None
     backend_client: Optional[Any] = None

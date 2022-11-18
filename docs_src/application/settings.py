@@ -1,11 +1,9 @@
 from typing import List
 
 from esmerald import EsmeraldAPISettings
-from esmerald.protocols import middleware
 from esmerald.types import Middleware
 from esmerald.utils.crypto import get_random_secret_key
 from redis import Redis
-from starlette.middleware import Middleware as StarletteMiddleware
 
 from esmerald_sessions import BackendType, SessionConfig, SessionMiddleware
 

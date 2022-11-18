@@ -39,6 +39,8 @@ plugins:
 nav:
   - Esmerald Sessions: "index.md"
   - Usage: "usage.md"
+  - SessionConfig: "session-config.md"
+  - Backends: "backends.md"
   - Contributing: "contributing.md"
   - Sponsorship: "sponsorship.md"
   - Release Notes: "release-notes.md"

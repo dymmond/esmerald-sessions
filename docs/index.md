@@ -50,3 +50,7 @@ Inspired by [Starlette Session](https://github.com/auredentan/starlette-session/
 ```shell
 $ pip install esmerald-sessions
 ```
+
+## How to use
+
+There are more detailed information about how to use this package in the [usage](./usage.md) section.
