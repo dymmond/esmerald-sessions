@@ -37,12 +37,13 @@ it clear to understand and get the required help.
 
 ## Development
 
-To develop for Esmerald, create a fork of the [Esmerald repository](https://github.com/dymmond/esmerald) on GitHub.
+To develop for Esmerald, create a fork of the [Esmerald Sessions repository](https://github.com/dymmond/esmerald-sessions)
+on GitHub.
 
 After, clone your fork with the follow command replacing `YOUR-USERNAME` wih your GitHub username:
 
 ```shell
-$ git clone https://github.com/YOUR-USERNAME/esmerald
+$ git clone https://github.com/YOUR-USERNAME/esmerald-sessions
 ```
 
 ### Install the project dependencies
@@ -60,13 +61,13 @@ To run the tests, use:
 $ scripts/test
 ```
 
-Because Esmerald uses pytest, any additional arguments will be passed. More info within the
+Because Esmerald Sessions uses pytest, any additional arguments will be passed. More info within the
 [pytest documentation](https://docs.pytest.org/en/latest/how-to/usage.html)
 
 For example, to run a single test_script:
 
 ```shell
-$ scripts/test tests/test_apiviews.py
+$ scripts/test tests/test_backends.py
 ```
 
 To run the linting, use:

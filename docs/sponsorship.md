@@ -1,4 +1,4 @@
-# Help Esmerald
+# Help Esmerald and Esmerald Sessions
 
 Do you like **Esmerald** and would like to help Esmerald, other userd and the author?
 
@@ -6,13 +6,14 @@ Do you like **Esmerald** and would like to help Esmerald, other userd and the au
 
 [Follow @apiesmerald on Twitter](https://twitter.com/apiesmerald) to get the latest news.
 
-## ⭐ Star **Esmerald** on GitHub
+## ⭐ Star **Esmerald** and **Esmerald Sessions** on GitHub
 
 Giving a start to Esmerald is very simple and helps promoting the work across the developers around the world.
 
 The button is located at the top right.
 
 [https://github.com/dymmond/esmerald](https://github.com/dymmond/esmerald).
+[https://github.com/dymmond/esmerald-sessions](https://github.com/dymmond/esmerald-sessions).
 
 This will help spreading the word about the tool and how helpful has been.
 
