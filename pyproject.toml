@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "esmerald_sessions"
-description = "An alternative SessionMiddleware for Esmerald."
-long_description = "An alternative SessionMiddleware for Esmerald."
+description = "An alternative SessionMiddleware for Esmerald with Pydantic."
+long_description = "An alternative SessionMiddleware for Esmerald with Pydantic."
 readme = "README.md"
 requires-python = ">=3.7"
 dynamic = ['version']
