@@ -15,10 +15,6 @@ if TYPE_CHECKING:
     from pydantic.typing import DictAny
 
 
-_dumps = partial(dumps, protocol=HIGHEST_PROTOCOL)
-_loads = partial(loads)
-
-
 class RedisSessionBackend(SessionBackend):
     """
     Backend for redis.
