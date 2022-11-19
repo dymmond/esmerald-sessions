@@ -8,16 +8,16 @@ theme:
   language: en
   palette:
     - scheme: "default"
-      primary: "pink"
-      accent: "red"
+      primary: "green"
+      accent: "orange"
       media: "(prefers-color-scheme: light)"
       toggle:
         icon: "material/toggle-switch-variant"
         name: "Switch to dark mode"
     - scheme: "slate"
       media: "(prefers-color-scheme: dark)"
-      primary: "pink"
-      accent: "red"
+      primary: "green"
+      accent: "orange"
       toggle:
         icon: "material/toggle-switch-variant-off"
         name: "Switch to light mode"
