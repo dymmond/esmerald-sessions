@@ -1,5 +1,5 @@
 site_name: Esmerald Sessions
-site_description: The scheduler that nobody wanted but the one that every application needs.
+site_description: An alternative SessionMiddleware for Esmerald with Pydantic at its core.
 site_url: https://esmerald-sessions.dymmond.com
 
 theme:
