@@ -2,18 +2,18 @@ import re
 
 import fakeredis
 import pytest
-from esmerald import Gateway, JSONResponse, Request, get, post
-from esmerald.applications import Esmerald
-from esmerald.testclient import EsmeraldTestClient, create_client
-from esmerald.utils.crypto import get_random_secret_key
-from pymemcache.test.utils import MockMemcacheClient
-from starlette.middleware import Middleware
-
 from esmerald_sessions.config import SessionConfig
 from esmerald_sessions.datastructures import MemCacheJSONSerde
 from esmerald_sessions.enums import BackendType
 from esmerald_sessions.exceptions import SessionException
 from esmerald_sessions.middleware import SessionMiddleware
+from pymemcache.test.utils import MockMemcacheClient
+from starlette.middleware import Middleware
+
+from esmerald import Gateway, JSONResponse, Request, get, post
+from esmerald.applications import Esmerald
+from esmerald.testclient import EsmeraldTestClient, create_client
+from esmerald.utils.crypto import get_random_secret_key
 
 
 @get()
@@ -69,7 +69,7 @@ def test_MemcacheJSONSerde():
 
 
 def test_without_backend(app):
-    session_config = SessionConfig(secret_key="secret", cookie_name="cookie")
+    session_config = SessionConfig(secret_key=get_random_secret_key(), cookie_name="cookie")
     app.add_middleware(SessionMiddleware, config=session_config)
 
     client = EsmeraldTestClient(app)
@@ -91,7 +91,7 @@ def test_without_backend(app):
 
 
 def test_without_backend_using_config():
-    session_config = SessionConfig(secret_key="secret", cookie_name="cookie")
+    session_config = SessionConfig(secret_key=get_random_secret_key(), cookie_name="cookie")
 
     with create_client(
         routes=[

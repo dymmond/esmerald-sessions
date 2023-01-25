@@ -1,5 +1,3 @@
-from functools import partial
-from pickle import HIGHEST_PROTOCOL, dumps, loads
 from typing import TYPE_CHECKING, Any, Optional, Union
 
 import orjson
