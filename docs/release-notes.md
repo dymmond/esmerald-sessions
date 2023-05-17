@@ -7,6 +7,8 @@
 - Upgraded Esmerald version to 1.2+.
 - Removed aioredis in favour of the native redis client async.
 - Updated tests to reflect the new lazy middleware loading.
+- Deprecated python 3.7 support.
+- Added python 3.11 support.
 
 ## 0.2.0
 
