@@ -1,4 +1,5 @@
 #!/bin/sh -e
+#!/bin/sh -e
 
 if [ -d 'dist' ] ; then
     rm -r dist
@@ -20,4 +21,7 @@ if [ -d '.mypy_cache' ] ; then
 fi
 if [ -d '.pytest_cache' ] ; then
     rm -r .pytest_cache
+fi
+if [ -d '.ruff_cache' ] ; then
+    rm -r .ruff_cache
 fi

@@ -2,18 +2,18 @@ import re
 
 import fakeredis
 import pytest
+from esmerald import Gateway, JSONResponse, Request, get, post
+from esmerald.applications import Esmerald
+from esmerald.testclient import EsmeraldTestClient, create_client
+from esmerald.utils.crypto import get_random_secret_key
+from pymemcache.test.utils import MockMemcacheClient
+from starlette.middleware import Middleware
+
 from esmerald_sessions.config import SessionConfig
 from esmerald_sessions.datastructures import MemCacheJSONSerde
 from esmerald_sessions.enums import BackendType
 from esmerald_sessions.exceptions import SessionException
 from esmerald_sessions.middleware import SessionMiddleware
-from pymemcache.test.utils import MockMemcacheClient
-from starlette.middleware import Middleware
-
-from esmerald import Gateway, JSONResponse, Request, get, post
-from esmerald.applications import Esmerald
-from esmerald.testclient import EsmeraldTestClient, create_client
-from esmerald.utils.crypto import get_random_secret_key
 
 
 @get()
@@ -46,6 +46,25 @@ def app():
     return app
 
 
+def generate_app(middleware=None, **kwargs):
+    if middleware:
+        return Esmerald(
+            routes=[
+                Gateway("/view-session", handler=view_session),
+                Gateway("/update-session", handler=update_session),
+                Gateway("/clear-session", handler=clear_session),
+            ],
+            middleware=[Middleware(middleware, **kwargs)],
+        )
+    return Esmerald(
+        routes=[
+            Gateway("/view-session", handler=view_session),
+            Gateway("/update-session", handler=update_session),
+            Gateway("/clear-session", handler=clear_session),
+        ],
+    )
+
+
 @pytest.fixture
 def redis() -> fakeredis.FakeStrictRedis:
     return fakeredis.FakeStrictRedis()
@@ -68,9 +87,9 @@ def test_MemcacheJSONSerde():
         serde.deserialize("key", '{"key1":"test"}', -1)
 
 
-def test_without_backend(app):
+def test_without_backend():
     session_config = SessionConfig(secret_key=get_random_secret_key(), cookie_name="cookie")
-    app.add_middleware(SessionMiddleware, config=session_config)
+    app = generate_app(SessionMiddleware, config=session_config)
 
     client = EsmeraldTestClient(app)
 
@@ -101,7 +120,6 @@ def test_without_backend_using_config():
         ],
         middleware=[Middleware(SessionMiddleware, config=session_config)],
     ) as client:
-
         response = client.get("/view-session")
         assert response.json() == {"session": {}}
 
@@ -118,14 +136,14 @@ def test_without_backend_using_config():
         assert response.json() == {"session": {}}
 
 
-def test_with_redis_backend(mocker, app, redis):
+def test_with_redis_backend(mocker, redis):
     session_config = SessionConfig(
         secret_key=get_random_secret_key(),
         cookie_name="cookie",
         backend_type=BackendType.redis,
         backend_client=redis,
     )
-    app.add_middleware(SessionMiddleware, config=session_config)
+    app = generate_app(SessionMiddleware, config=session_config)
     client = EsmeraldTestClient(app)
 
     spy_redis_set = mocker.spy(redis, "set")
@@ -181,15 +199,14 @@ def test_with_redis_backend_with_config(mocker, app, redis):
         spy_redis_delete.assert_called_once()
 
 
-def test_with_memcache_backend(mocker, app, memcache):
-
+def test_with_memcache_backend(mocker, memcache):
     session_config = SessionConfig(
         secret_key=get_random_secret_key(),
         cookie_name="cookie",
         backend_type=BackendType.memcache,
         backend_client=memcache,
     )
-    app.add_middleware(SessionMiddleware, config=session_config)
+    app = generate_app(SessionMiddleware, config=session_config)
     client = EsmeraldTestClient(app)
 
     spy_redis_set = mocker.spy(memcache, "set")
@@ -211,8 +228,7 @@ def test_with_memcache_backend(mocker, app, memcache):
     spy_redis_delete.assert_called_once()
 
 
-def test_with_memcache_backend_config(mocker, app, memcache):
-
+def test_with_memcache_backend_config(mocker, memcache):
     session_config = SessionConfig(
         secret_key=get_random_secret_key(),
         cookie_name="cookie",
@@ -227,7 +243,6 @@ def test_with_memcache_backend_config(mocker, app, memcache):
         ],
         middleware=[Middleware(SessionMiddleware, config=session_config)],
     ) as client:
-
         spy_redis_set = mocker.spy(memcache, "set")
         spy_redis_get = mocker.spy(memcache, "get")
         spy_redis_delete = mocker.spy(memcache, "delete")
