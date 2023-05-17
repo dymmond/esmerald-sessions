@@ -1,7 +1,7 @@
 # Esmerald
 
 <p align="center">
-  <a href="https://esmerald.dymmond.com"><img src="https://res.cloudinary.com/dymmond/image/upload/v1671718628/esmerald/img/logo-gr_oyr4my.png" alt='Esmerald'></a>
+  <a href="https://esmerald.dymmond.com"><img src="https://res.cloudinary.com/dymmond/image/upload/v1673619342/esmerald/img/logo-gr_z1ot8o.png" alt='Esmerald'></a>
 </p>
 
 <p align="center">
@@ -13,11 +13,11 @@
     <img src="https://github.com/dymmond/esmerald-sessions/workflows/Test%20Suite/badge.svg?event=push&branch=main" alt="Test Suite">
 </a>
 
-<a href="https://pypi.org/project/esmerald" target="_blank">
+<a href="https://pypi.org/project/esmerald-sessions" target="_blank">
     <img src="https://img.shields.io/pypi/v/esmerald-sessions?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
 
-<a href="https://pypi.org/project/esmerald" target="_blank">
+<a href="https://pypi.org/project/esmerald-sessions" target="_blank">
     <img src="https://img.shields.io/pypi/pyversions/esmerald-sessions.svg?color=%2334D058" alt="Supported Python versions">
 </a>
 </p>
