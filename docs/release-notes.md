@@ -1,8 +1,14 @@
 # Release Notes
 
-## 0.2.0
+## 0.3.0
 
-January 25, 2023
+### Changed
+
+- Upgraded Esmerald version to 1.2+.
+- Removed aioredis in favour of the native redis client async.
+- Updated tests to reflect the new lazy middleware loading.
+
+## 0.2.0
 
 ### Changed
 
@@ -10,16 +16,12 @@ January 25, 2023
 
 ## 0.1.1
 
-November 15, 2022
-
 ### Fixed
 
 - Removed unused bit of old logic. It was supposed to
 go with version 0.1.0.
 
 ## 0.1.0
-
-November 15, 2022
 
 ### Added
 
