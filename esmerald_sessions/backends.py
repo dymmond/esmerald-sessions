@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING, Any, Optional, Union
 
 import orjson
 from aiomcache import Client as AioMemcache
-from aioredis import Redis as AioRedis
 from pymemcache.client.base import Client as MemCache
 from redis import Redis
+from redis.asyncio import Redis as AioRedis
 
 from esmerald_sessions.datastructures import MemCacheJSONSerde
 from esmerald_sessions.protocols import SessionBackend
